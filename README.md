@@ -27,3 +27,10 @@ pip install -r requirements.txt
     Rode a aplicação:
 python app.py
     Acesse o dashboard em http://localhost:8050
+
+
+Projeto em adamento ainda falta:
+- Terminar o app
+- Simular um caso real de score de crédito
+- Usar técnicas aplicadas (engenharia de atributos + modelos interpretáveis)
+- Amarrar com alertas automáticos via n8n
