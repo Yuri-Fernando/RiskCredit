@@ -1,7 +1,8 @@
-🔍 Credit Default Prediction Dashboard
+ Credit Default Prediction Dashboard
 
 Este projeto aplica Machine Learning para prever inadimplência de clientes de cartão de crédito usando o dataset UCI Credit Card Default. O modelo é interpretado com SHAP e visualizado num dashboard interativo construído com Dash (Plotly).
-⚙️ Funcionalidades
+ 
+Funcionalidades
 
     📊 Classificação binária com Random Forest e balanceamento de classes via SMOTE
     🧮 Métricas de performance: ROC AUC, matriz de confusão, classification report
@@ -13,13 +14,13 @@ Este projeto aplica Machine Learning para prever inadimplência de clientes de c
         SHAP summary (importância das variáveis)
         Análise por perfil de cliente (interativo)
 
-🧰 Stack usada
+ Stack usada
     Python (pandas, scikit-learn, imblearn, shap, matplotlib)
     Dash (Plotly) + Dash HTML & Core Components
     SMOTE para tratamento de desbalanceamento
     SHAP para interpretabilidade de modelos
 
-🏁 Como rodar
+ Como rodar
     Clone o repositório
     Instale as dependências:
 pip install -r requirements.txt
