@@ -4,15 +4,15 @@ Este projeto aplica Machine Learning para prever inadimplência de clientes de c
  
 Funcionalidades
 
-    📊 Classificação binária com Random Forest e balanceamento de classes via SMOTE
-    🧮 Métricas de performance: ROC AUC, matriz de confusão, classification report
-    🔬 Análise interpretável com SHAP (importância global e local das features)
-    🧠 Dashboard com múltiplas abas:
-        Visão geral do modelo e resultados
-        Curva ROC
-        Distribuição dos scores
-        SHAP summary (importância das variáveis)
-        Análise por perfil de cliente (interativo)
+     Classificação binária com Random Forest e balanceamento de classes via SMOTE
+     Métricas de performance: ROC AUC, matriz de confusão, classification report
+     Análise interpretável com SHAP (importância global e local das features)
+     Dashboard com múltiplas abas:
+     Visão geral do modelo e resultados
+     Curva ROC
+     Distribuição dos scores
+     SHAP summary (importância das variáveis)
+     Análise por perfil de cliente (interativo)
 
  Stack usada
     Python (pandas, scikit-learn, imblearn, shap, matplotlib)
