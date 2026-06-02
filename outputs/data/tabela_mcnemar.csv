@@ -1,0 +1,4 @@
+Comparação,b (M1✓ M2✗),c (M1✗ M2✓),McNemar χ²,p-value,Resultado
+Random Forest vs XGBoost,286,229,6.089320388349514,0.01360013891857037,✓ Sig.
+Random Forest vs Logística,912,345,254.85759745425617,0.0,✓ Sig.
+XGBoost vs LightGBM,171,248,13.785202863961814,0.00020494406105975305,✓ Sig.

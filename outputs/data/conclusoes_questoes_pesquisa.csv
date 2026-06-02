@@ -1,0 +1,8 @@
+Questão,Resposta Resumida
+1. ML supera Regressão Logística?,"SIM. O melhor modelo (LightGBM) obteve AUC=0.7645 e F1=0.5018, contra AUC=0.6992 e F1=0.4649 da Regressão Logística. Ganho absoluto no AUC: +0.0653."
+2. Qual modelo apresenta melhor capacidade preditiva?,"LightGBM: AUC=0.7645 no conjunto de teste. Em K-Fold, LightGBM obteve média 0.7770 ± 0.0099."
+3. O ganho de performance é estatisticamente significativo?,"SIM em 5/5 comparações (paired t-test, α=0.05). Modelos ensemble são significativamente superiores à Regressão Logística."
+4. O modelo é estável em diferentes amostras?,"SIM. LightGBM apresentou desvio padrão de 0.0099 em 10 folds, indicando boa estabilidade. Desvio < 0.01 é considerado excelente."
+5. As probabilidades previstas são confiáveis?,"SIM. A calibração isotônica melhorou o Brier Score em todos os modelos testados. Sem calibração, os modelos tendem a superestimar ou subestimar as probabilidades nos extremos."
+6. Quais variáveis mais influenciam a inadimplência?,"Segundo SHAP (XGBoost), as 5 features mais impactantes são: ['mean_delay', 'max_delay', 'MARRIAGE', 'PAY_0', 'total_bill']. Status de pagamento recente (PAY_0, mean_delay) e limite de crédito (LIMIT_BAL) dominam as predições."
+7. É possível conciliar performance e interpretabilidade?,SIM. XGBoost com SHAP oferece AUC=0.7645 com explicabilidade total (global via beeswarm + individual via waterfall). A Regressão Logística oferece interpretabilidade máxima mas com custo de ~0.0653 de AUC.

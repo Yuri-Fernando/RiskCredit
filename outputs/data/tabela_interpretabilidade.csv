@@ -1,0 +1,4 @@
+Técnica,Tipo,Interpretabilidade,Captura Não-Linearidade,Explicação Individual,Custo Computacional
+Coeficientes LR,Global,Alta,Não,Não,Baixo
+RF Feature Importance,Global,Média,Sim,Parcial,Médio
+SHAP (XGBoost),Global + Local,Muito Alta,Sim,Sim,Alto

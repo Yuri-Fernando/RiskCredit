@@ -1,0 +1,15 @@
+# Vídeos de gravação
+*.mp4
+
+# Configuração local do Claude Code
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
