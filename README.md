@@ -1,121 +1,278 @@
-# Credit Risk Analysis — Análise de Risco de Crédito com ML
+# Credit Risk Analysis — Análise de Risco de Crédito com Machine Learning
 
-Projeto de ciência de dados com pipeline completo de machine learning aplicado à predição de inadimplência de clientes de cartão de crédito, com rigor metodológico equivalente a artigo científico aplicado.
+## Status
+
+🟢 **Concluído — Projeto de portfólio / Machine Learning aplicado**
+
+Pipeline completo de **Machine Learning aplicado à predição de inadimplência em cartões de crédito**, desenvolvido com foco em rigor metodológico, validação estatística, calibração de probabilidades e interpretabilidade dos modelos.
+
+O projeto utiliza o dataset público **UCI Credit Card Default — Taiwan** e percorre todo o fluxo de análise, desde EDA e engenharia de atributos até modelagem, validação, explicabilidade e disponibilização dos resultados em dashboard interativo.
 
 ---
 
 ## Visão Geral
 
-| Campo | Detalhe |
-|---|---|
-| **Dataset** | UCI Credit Card Default — Taiwan |
-| **Volume** | 30.000 clientes, 23 features |
-| **Problema** | Classificação binária: inadimplência no mês seguinte |
-| **Modelos** | Baseline, Regressão Logística, Random Forest, XGBoost, LightGBM |
-| **Melhor modelo** | LightGBM — AUC 0.7645, validado com Stratified K-Fold (10 splits) |
+| Campo             | Detalhe                                                         |
+| ----------------- | --------------------------------------------------------------- |
+| **Dataset**       | UCI Credit Card Default — Taiwan                                |
+| **Volume**        | 30.000 clientes, 23 features                                    |
+| **Problema**      | Classificação binária: inadimplência no mês seguinte            |
+| **Modelos**       | Baseline, Regressão Logística, Random Forest, XGBoost, LightGBM |
+| **Melhor modelo** | LightGBM                                                        |
+| **ROC AUC**       | 0.7645 no conjunto de avaliação                                 |
+| **K-Fold AUC**    | 0.7770 ± 0.0099                                                 |
 
 ---
 
-## Pipeline — 10 Fases
+## Objetivo
 
-### 1. Análise Exploratória (EDA)
-- Distribuição do target (default: 22,1%)
-- Matriz de correlação entre features
-- Distribuições e outliers das variáveis numéricas
-- **Análise de viés por faixa etária**: taxa de inadimplência por grupo demográfico
+O projeto busca avaliar diferentes abordagens de Machine Learning para **predição de default**, comparando desempenho, estabilidade, calibração e interpretabilidade.
 
-### 2. Engenharia de Atributos
-7 features derivadas criadas e validadas via comparação A/B:
-
-| Feature | Descrição |
-|---|---|
-| `mean_delay` | Média dos status de atraso (PAY_0 a PAY_6) |
-| `max_delay` | Máximo atraso registrado |
-| `total_bill` | Soma total das faturas |
-| `total_pay` | Soma total dos pagamentos |
-| `pay_ratio` | Razão pagamento/fatura |
-| `bill_trend` | Tendência de crescimento da fatura |
-| `pay_trend` | Tendência de crescimento do pagamento |
-
-### 3. Comparação de 5 Modelos
-
-| Modelo | Accuracy | F1 | ROC AUC | PR AUC | Brier |
-|---|---|---|---|---|---|
-| Baseline | 0.7788 | 0.0000 | 0.5000 | 0.2212 | 0.2212 |
-| Regressão Logística | 0.7015 | 0.4649 | 0.6992 | 0.4436 | 0.2004 |
-| Random Forest | 0.7978 | 0.5018 | 0.7545 | 0.5108 | 0.1510 |
-| XGBoost | 0.7907 | 0.4814 | 0.7445 | 0.5030 | 0.1536 |
-| **LightGBM** | **0.7972** | **0.4897** | **0.7645** | **0.5282** | **0.1456** |
-
-### 4. Otimização de Hiperparâmetros
-`RandomizedSearchCV` com validação cruzada aplicada nos três modelos ensemble.
-
-### 5. Validação Robusta — Stratified K-Fold
-10 splits estratificados para avaliação estável:
-- LightGBM: AUC médio **0.7770 ± 0.0099** (desvio < 0.01 = excelente estabilidade)
-
-### 6. Testes Estatísticos
-- **Paired t-test**: modelos ensemble são significativamente superiores à Regressão Logística em 5/5 comparações (α = 0.05)
-- **Teste de McNemar**: diferenças nas predições individuais entre pares de modelos
-
-### 7. Calibração de Probabilidades
-`CalibratedClassifierCV` com isotônica regressão — Brier Score melhorado em todos os modelos testados.
-
-### 8. Interpretabilidade Global
-- **Regressão Logística**: coeficientes padronizados
-- **Random Forest**: feature importance por impureza
-- **XGBoost + SHAP**: beeswarm plot e bar plot com as 5 features mais impactantes
-
-Top 5 features (SHAP — XGBoost):
-1. `mean_delay` — atraso médio de pagamento
-2. `max_delay` — pior atraso registrado
-3. `MARRIAGE` — estado civil
-4. `PAY_0` — status de pagamento mais recente
-5. `total_bill` — valor total das faturas
-
-### 9. Perfis Individuais — 3 Clientes
-SHAP Waterfall para explicação individual de previsões:
-- **Cliente A** — Baixo risco
-- **Cliente B** — Médio risco
-- **Cliente C** — Alto risco
-
-### 10. Dashboard Interativo (Dash)
-Aplicação web com 3 abas:
-- **Visão Geral**: comparação de métricas entre modelos
-- **Tabelas**: resultados detalhados de cada fase
-- **Simulador Individual**: entrada de dados de um cliente e previsão de risco em tempo real
+Além da previsão, a solução investiga quais características mais contribuem para o risco estimado e disponibiliza uma interface para análise individual das predições.
 
 ---
 
-## Questões de Pesquisa Respondidas
+## Pipeline
 
-| # | Questão | Resposta |
-|---|---|---|
-| 1 | ML supera Regressão Logística? | **SIM** — LightGBM: AUC 0.7645 vs 0.6992 (ganho +0.0653) |
-| 2 | Melhor modelo preditivo? | **LightGBM** — AUC 0.7770 ± 0.0099 em K-Fold |
-| 3 | Ganho é estatisticamente significativo? | **SIM** em 5/5 comparações (paired t-test, α=0.05) |
-| 4 | Modelo é estável em diferentes amostras? | **SIM** — desvio padrão de 0.0099 (excelente) |
-| 5 | Probabilidades previstas são confiáveis? | **SIM** — calibração isotônica melhorou todos os modelos |
-| 6 | Variáveis mais influentes? | `mean_delay`, `max_delay`, `MARRIAGE`, `PAY_0`, `total_bill` |
-| 7 | Performance e interpretabilidade conciliáveis? | **SIM** — XGBoost + SHAP: AUC 0.7645 com explicabilidade total |
+```text id="n4wy6r"
+Dataset
+   ↓
+EDA
+   ↓
+Feature Engineering
+   ↓
+Train / Validation
+   ↓
+Model Comparison
+   ↓
+Hyperparameter Optimization
+   ↓
+Stratified K-Fold
+   ↓
+Statistical Tests
+   ↓
+Probability Calibration
+   ↓
+Explainability / SHAP
+   ↓
+Individual Risk Analysis
+   ↓
+Interactive Dashboard
+```
+
+---
+
+## 1. Análise Exploratória
+
+A etapa de EDA contempla:
+
+* Distribuição do target;
+* Identificação da taxa de default;
+* Matriz de correlação;
+* Distribuição das variáveis numéricas;
+* Investigação de outliers;
+* Análise das características demográficas;
+* Taxa de inadimplência por faixa etária.
+
+A distribuição observada para o target apresenta aproximadamente **22,1% de inadimplência**.
+
+---
+
+## 2. Engenharia de Atributos
+
+Foram desenvolvidas e avaliadas **7 features derivadas**, com foco em histórico de pagamento, comportamento financeiro e tendências.
+
+| Feature      | Descrição                                      |
+| ------------ | ---------------------------------------------- |
+| `mean_delay` | Média dos status de atraso (`PAY_0` a `PAY_6`) |
+| `max_delay`  | Máximo atraso registrado                       |
+| `total_bill` | Soma total das faturas                         |
+| `total_pay`  | Soma total dos pagamentos                      |
+| `pay_ratio`  | Relação entre pagamento e faturamento          |
+| `bill_trend` | Tendência de crescimento da fatura             |
+| `pay_trend`  | Tendência de crescimento do pagamento          |
+
+---
+
+## 3. Comparação de Modelos
+
+Foram comparados cinco modelos e um baseline:
+
+| Modelo              |   Accuracy |         F1 |    ROC AUC |     PR AUC |      Brier |
+| ------------------- | ---------: | ---------: | ---------: | ---------: | ---------: |
+| Baseline            |     0.7788 |     0.0000 |     0.5000 |     0.2212 |     0.2212 |
+| Regressão Logística |     0.7015 |     0.4649 |     0.6992 |     0.4436 |     0.2004 |
+| Random Forest       |     0.7978 |     0.5018 |     0.7545 |     0.5108 |     0.1510 |
+| XGBoost             |     0.7907 |     0.4814 |     0.7445 |     0.5030 |     0.1536 |
+| **LightGBM**        | **0.7972** | **0.4897** | **0.7645** | **0.5282** | **0.1456** |
+
+O **LightGBM** apresentou o maior ROC AUC entre os modelos avaliados no experimento principal.
+
+---
+
+## 4. Otimização de Hiperparâmetros
+
+Foi utilizado:
+
+```text
+RandomizedSearchCV
+```
+
+com validação cruzada para otimização dos modelos ensemble.
+
+A etapa foi utilizada para investigar combinações de hiperparâmetros e avaliar o comportamento dos modelos sob diferentes configurações.
+
+---
+
+## 5. Validação Robusta — Stratified K-Fold
+
+A avaliação foi complementada por **10 splits estratificados**, buscando medir a estabilidade do desempenho em diferentes particionamentos dos dados.
+
+### LightGBM
+
+```text
+ROC AUC médio: 0.7770
+Desvio padrão: 0.0099
+```
+
+O desvio padrão inferior a 0,01 indica baixa variação do ROC AUC entre os folds analisados.
+
+---
+
+## 6. Testes Estatísticos
+
+O projeto inclui análises estatísticas para complementar a comparação dos modelos.
+
+### Paired t-test
+
+Aplicado para comparar o desempenho dos modelos em diferentes folds.
+
+Resultado observado:
+
+```text
+Modelos ensemble vs. Regressão Logística
+Significância estatística em 5/5 comparações
+α = 0.05
+```
+
+### McNemar Test
+
+Utilizado para analisar diferenças nas predições individuais entre pares de modelos.
+
+---
+
+## 7. Calibração de Probabilidades
+
+Foi utilizada a técnica:
+
+```text
+CalibratedClassifierCV
+```
+
+com **regressão isotônica** para avaliar e melhorar a calibração das probabilidades previstas.
+
+O Brier Score foi utilizado como uma das métricas de avaliação da qualidade das probabilidades produzidas.
+
+---
+
+## 8. Interpretabilidade Global
+
+Diferentes métodos foram utilizados de acordo com o modelo:
+
+### Regressão Logística
+
+* Coeficientes padronizados.
+
+### Random Forest
+
+* Feature importance baseada em impureza.
+
+### XGBoost
+
+* SHAP;
+* Beeswarm plot;
+* Bar plot;
+* Ranking das features mais impactantes.
+
+### Top 5 Features — SHAP
+
+1. `mean_delay`
+2. `max_delay`
+3. `MARRIAGE`
+4. `PAY_0`
+5. `total_bill`
+
+---
+
+## 9. Explicabilidade Individual
+
+Foram analisados três perfis individuais utilizando **SHAP Waterfall**:
+
+* **Cliente A** — baixo risco;
+* **Cliente B** — risco intermediário;
+* **Cliente C** — alto risco.
+
+O objetivo é mostrar como diferentes características contribuem para a previsão individual de cada cliente.
+
+---
+
+## 10. Dashboard Interativo
+
+O projeto inclui uma aplicação desenvolvida com **Dash** com três áreas principais:
+
+### Visão Geral
+
+Comparação de desempenho entre os modelos avaliados.
+
+### Tabelas
+
+Exibição dos resultados detalhados de:
+
+* Modelos;
+* K-Fold;
+* Calibração;
+* Interpretabilidade;
+* Testes estatísticos;
+* Otimização.
+
+### Simulador Individual
+
+Permite inserir características de um cliente e obter uma estimativa de risco utilizando o pipeline desenvolvido.
+
+---
+
+## Questões de Pesquisa
+
+| # | Questão                                              | Resultado                                                    |
+| - | ---------------------------------------------------- | ------------------------------------------------------------ |
+| 1 | ML supera Regressão Logística?                       | LightGBM apresentou AUC 0.7645 vs. 0.6992                    |
+| 2 | Qual apresentou melhor desempenho no K-Fold?         | LightGBM — 0.7770 ± 0.0099                                   |
+| 3 | Houve diferença estatística nas comparações?         | Significância observada em 5/5 comparações                   |
+| 4 | O desempenho apresentou estabilidade?                | Desvio padrão de 0.0099 no LightGBM                          |
+| 5 | As probabilidades foram calibradas?                  | Calibração isotônica aplicada                                |
+| 6 | Quais features mais influenciaram?                   | `mean_delay`, `max_delay`, `MARRIAGE`, `PAY_0`, `total_bill` |
+| 7 | É possível combinar desempenho e interpretabilidade? | XGBoost + SHAP forneceu análise detalhada das contribuições  |
 
 ---
 
 ## Estrutura do Projeto
 
-```
+```text id="w7d3h8"
 .
-├── riskcredit_v2.ipynb       # Notebook principal (28 células)
-├── generate_notebook.py       # Script gerador do notebook
-├── UCI_Credit_Card.csv        # Dataset (30.000 registros)
+├── riskcredit_v2.ipynb
+├── generate_notebook.py
+├── UCI_Credit_Card.csv
+│
 ├── outputs/
-│   ├── relatorio_final.pdf    # Relatório exportado
-│   ├── images/                # 18+ gráficos gerados (PNG)
+│   ├── relatorio_final.pdf
+│   │
+│   ├── images/
 │   │   ├── 01_distribuicao_target.png
 │   │   ├── 02_correlacao_heatmap.png
 │   │   ├── ...
 │   │   └── 18_resumo_final_performance.png
-│   └── data/                  # Tabelas de resultados (CSV)
+│   │
+│   └── data/
 │       ├── tabela_modelos.csv
 │       ├── tabela_kfold.csv
 │       ├── tabela_calibracao.csv
@@ -124,25 +281,38 @@ Aplicação web com 3 abas:
 │       ├── tabela_mcnemar.csv
 │       ├── tabela_otimizacao.csv
 │       └── conclusoes_questoes_pesquisa.csv
+│
 └── README.md
 ```
 
 ---
 
-## Como Rodar
+## Como Executar
 
 ### Pré-requisitos
+
+Python 3.9+
+
+### Instalação
+
 ```bash
 pip install numpy pandas matplotlib seaborn scikit-learn xgboost lightgbm shap dash plotly reportlab
 ```
 
-### Opção 1 — Notebook direto
+### Opção 1 — Executar o notebook
+
 ```bash
 jupyter notebook riskcredit_v2.ipynb
-# Kernel → Restart & Run All
 ```
 
-### Opção 2 — Regenerar o notebook do zero
+Depois:
+
+```text
+Kernel → Restart & Run All
+```
+
+### Opção 2 — Regenerar o notebook
+
 ```bash
 python generate_notebook.py
 jupyter notebook riskcredit_v2.ipynb
@@ -159,24 +329,97 @@ jupyter notebook riskcredit_v2.ipynb
 ![SHAP](https://img.shields.io/badge/SHAP-explainability-purple)
 ![Dash](https://img.shields.io/badge/Dash-dashboard-blue)
 
-| Categoria | Bibliotecas |
-|---|---|
-| Dados | pandas, numpy |
-| Visualização | matplotlib, seaborn, plotly |
-| ML | scikit-learn, xgboost, lightgbm |
-| Explicabilidade | shap |
-| Dashboard | dash |
-| Exportação | reportlab |
+| Categoria        | Tecnologias                         |
+| ---------------- | ----------------------------------- |
+| Linguagem        | Python                              |
+| Dados            | Pandas · NumPy                      |
+| Visualização     | Matplotlib · Seaborn · Plotly       |
+| Machine Learning | scikit-learn · XGBoost · LightGBM   |
+| Explicabilidade  | SHAP                                |
+| Dashboard        | Dash                                |
+| Exportação       | ReportLab                           |
+| Avaliação        | ROC AUC · PR AUC · F1 · Brier Score |
+| Estatística      | Paired t-test · McNemar             |
 
 ---
 
 ## Dataset
 
-**UCI Machine Learning Repository — Default of Credit Card Clients**  
-Taiwan, 2005 — 30.000 clientes, 23 features originais + target binário (`default.payment.next.month`)
+**UCI Machine Learning Repository — Default of Credit Card Clients**
 
-Features incluem: limite de crédito, sexo, escolaridade, estado civil, idade, histórico de pagamentos (6 meses), valores de fatura e pagamento.
+Dataset referente a clientes de cartão de crédito de Taiwan, contendo:
+
+* **30.000 registros**
+* **23 features originais**
+* Target binário: `default.payment.next.month`
+
+As variáveis incluem informações relacionadas a:
+
+* limite de crédito;
+* características demográficas;
+* histórico de pagamentos;
+* valores de faturas;
+* valores de pagamentos.
 
 ---
 
-*Projeto de portfólio — pipeline de ML aplicado a risco de crédito com ênfase em rigor estatístico, interpretabilidade e reprodutibilidade.*
+## O que este projeto demonstra
+
+* Construção de pipeline completo de Machine Learning;
+* Análise exploratória de dados;
+* Feature Engineering;
+* Comparação sistemática de modelos;
+* Otimização de hiperparâmetros;
+* Validação cruzada estratificada;
+* Testes estatísticos;
+* Calibração de probabilidades;
+* Explainable AI;
+* SHAP global e local;
+* Avaliação de risco;
+* Desenvolvimento de dashboards analíticos;
+* Organização e reprodutibilidade de experimentos de Data Science.
+
+---
+
+## Limitações e Considerações
+
+* O dataset utilizado é público e histórico;
+* Os resultados são específicos ao conjunto de dados e metodologia utilizada;
+* O modelo não deve ser interpretado como um sistema de decisão de crédito validado para uso regulado;
+* A análise de viés apresentada é exploratória;
+* Resultados de métricas podem variar conforme particionamento, versões das bibliotecas e configuração dos modelos.
+
+---
+
+## Melhorias Futuras
+
+* Avaliação em outros datasets de risco de crédito;
+* Validação temporal e *out-of-time testing*;
+* Monitoramento de drift;
+* Comparação com outros algoritmos;
+* Experimentação com diferentes técnicas de calibração;
+* API para disponibilização do modelo;
+* Containerização da aplicação;
+* Pipeline de inferência automatizado;
+* Monitoramento de performance e qualidade do modelo;
+* Expansão da análise de fairness e bias.
+
+---
+
+## Status do Projeto
+
+🟢 **Concluído**
+
+O pipeline principal, experimentos, avaliação estatística, análise de interpretabilidade, geração de resultados e dashboard foram implementados e documentados.
+
+O repositório permanece disponível para reprodução dos experimentos e futuras extensões relacionadas a **Machine Learning, Explainable AI, Credit Risk e MLOps**.
+
+---
+
+## Autor
+
+**Yuri Fernando Dubbern**
+
+AI/ML Engineer · Data Science · Machine Learning · Risk Analytics
+
+[LinkedIn](https://www.linkedin.com/in/yuridubbern) · [GitHub](https://github.com/Yuri-Fernando) · [Lattes](http://lattes.cnpq.br/7151392692642166) · [Linktree](https://linktr.ee/yuri.f.dubbern)
