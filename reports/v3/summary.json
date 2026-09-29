@@ -1,0 +1,685 @@
+{
+  "version": "3.0.0",
+  "elapsed_seconds": 45.6,
+  "champion": {
+    "champion": "xgboost",
+    "gini_gain_vs_scorecard": 0.035436321772989166,
+    "reason": "ganho de Gini 0.035 ≥ 0.02 com calibração e estabilidade dentro do limite"
+  },
+  "scorecard_features": [
+    "PAY_0",
+    "max_delay",
+    "PAY_3",
+    "PAY_4",
+    "PAY_5",
+    "PAY_6",
+    "LIMIT_BAL",
+    "PAY_AMT1",
+    "PAY_AMT2",
+    "pay_ratio",
+    "PAY_AMT3",
+    "PAY_AMT4",
+    "PAY_AMT6",
+    "utilization_avg",
+    "PAY_AMT5",
+    "bill_trend"
+  ],
+  "scorecard_dropped": {
+    "pay_trend": "IV=0.010 < 0.02",
+    "BILL_AMT1": "IV=0.007 < 0.02",
+    "BILL_AMT2": "IV=0.005 < 0.02",
+    "BILL_AMT3": "IV=0.005 < 0.02",
+    "BILL_AMT4": "IV=0.004 < 0.02",
+    "BILL_AMT5": "IV=0.003 < 0.02",
+    "BILL_AMT6": "IV=0.003 < 0.02",
+    "n_months_delayed": "correlação WoE ≥ 0.7 com feature de maior IV",
+    "mean_delay": "correlação WoE ≥ 0.7 com feature de maior IV",
+    "utilization": "correlação WoE ≥ 0.7 com feature de maior IV",
+    "pay_ratio_avg": "sinal contraintuitivo na presença das demais",
+    "PAY_2": "sinal contraintuitivo na presença das demais"
+  },
+  "reason_codes_example": [
+    [
+      "PAY_AMT3",
+      "pay_ratio",
+      "PAY_AMT6"
+    ],
+    [
+      "max_delay",
+      "pay_ratio",
+      "PAY_AMT4"
+    ],
+    [
+      "utilization_avg",
+      "PAY_AMT3",
+      "pay_ratio"
+    ],
+    [
+      "max_delay",
+      "pay_ratio",
+      "PAY_AMT2"
+    ],
+    [
+      "PAY_AMT3",
+      "bill_trend",
+      "PAY_AMT6"
+    ]
+  ],
+  "champion_challenger": [
+    {
+      "model": "scorecard",
+      "auc": 0.7623,
+      "gini": 0.5246,
+      "ks": 0.4062,
+      "pr_auc": 0.5263,
+      "brier": 0.1387,
+      "ece": 0.0152,
+      "mean_pred": 0.2202,
+      "observed_rate": 0.2212,
+      "psi_train_test": 0.0008,
+      "explainability": "alta",
+      "n_features": 16,
+      "latency_ms_per_1k": 0.61,
+      "passes_calibration": true,
+      "passes_stability": true
+    },
+    {
+      "model": "logistic",
+      "auc": 0.7528,
+      "gini": 0.5057,
+      "ks": 0.3958,
+      "pr_auc": 0.5041,
+      "brier": 0.1421,
+      "ece": 0.013,
+      "mean_pred": 0.2199,
+      "observed_rate": 0.2212,
+      "psi_train_test": 0.0007,
+      "explainability": "alta",
+      "n_features": 28,
+      "latency_ms_per_1k": 0.5,
+      "passes_calibration": true,
+      "passes_stability": true
+    },
+    {
+      "model": "lightgbm",
+      "auc": 0.7769,
+      "gini": 0.5538,
+      "ks": 0.4181,
+      "pr_auc": 0.5517,
+      "brier": 0.1361,
+      "ece": 0.0189,
+      "mean_pred": 0.2186,
+      "observed_rate": 0.2212,
+      "psi_train_test": 0.0027,
+      "explainability": "média (SHAP)",
+      "n_features": 28,
+      "latency_ms_per_1k": 7.1,
+      "passes_calibration": true,
+      "passes_stability": true
+    },
+    {
+      "model": "xgboost",
+      "auc": 0.78,
+      "gini": 0.56,
+      "ks": 0.4257,
+      "pr_auc": 0.5553,
+      "brier": 0.1352,
+      "ece": 0.0139,
+      "mean_pred": 0.2198,
+      "observed_rate": 0.2212,
+      "psi_train_test": 0.0003,
+      "explainability": "média (SHAP)",
+      "n_features": 28,
+      "latency_ms_per_1k": 1.98,
+      "passes_calibration": true,
+      "passes_stability": true
+    },
+    {
+      "model": "lightgbm_calibrated",
+      "auc": 0.7773,
+      "gini": 0.5546,
+      "ks": 0.4214,
+      "pr_auc": 0.5507,
+      "brier": 0.1356,
+      "ece": 0.0093,
+      "mean_pred": 0.2207,
+      "observed_rate": 0.2212,
+      "psi_train_test": 0.0032,
+      "explainability": "média (SHAP)",
+      "n_features": 28,
+      "latency_ms_per_1k": 21.19,
+      "passes_calibration": true,
+      "passes_stability": true
+    }
+  ],
+  "robustness": {
+    "full_window": {
+      "auc": 0.780000908640172,
+      "gini": 0.560001817280344,
+      "ks": 0.42569354934987436,
+      "pr_auc": 0.5553017410586714
+    },
+    "lagged_1_month": {
+      "auc": 0.7483388115688812,
+      "gini": 0.4966776231377623,
+      "ks": 0.3698598322211687,
+      "pr_auc": 0.4845361616771058
+    },
+    "gini_drop": 0.06332419414258172,
+    "interpretation": "queda de Gini ao perder o mês mais recente (sensibilidade à defasagem de dados)",
+    "is_out_of_time": false
+  },
+  "threshold": {
+    "min_expected_cost": {
+      "threshold": 0.1,
+      "approval_rate": 0.3258888888888889,
+      "bad_rate_approved": 0.06784861916126833
+    },
+    "max_expected_profit": {
+      "threshold": 0.12,
+      "approval_rate": 0.4048888888888889,
+      "bad_rate_approved": 0.07766190998902305,
+      "realized_profit_test": 22655060.979999997
+    },
+    "naive_0_5": {
+      "approval_rate": 0.8798888888888889,
+      "bad_rate_approved": 0.16113145599191817,
+      "expected_profit": -11378444.846098911,
+      "realized_profit_test": -18804039.020000007
+    }
+  },
+  "segmentation": {
+    "k_kmeans": 5,
+    "k_gmm": 8,
+    "stability": {
+      "ari_mean": 0.780892648772221,
+      "ari_min": 0.6166538537046238,
+      "jaccard_by_cluster": [
+        0.36479255494745355,
+        0.875605815420395,
+        0.9250931818315338,
+        0.9691966120308533,
+        0.6934160457518149
+      ],
+      "unstable_clusters": [
+        0
+      ],
+      "n_boot": 30
+    },
+    "ari_kmeans_vs_gmm": 0.5095480813035661,
+    "dbscan": {
+      "eps": 0.9704347240544102,
+      "min_samples": 25,
+      "n_clusters": 4,
+      "noise_share": 0.05325
+    },
+    "profiles": [
+      {
+        "segment": 4,
+        "n": 8862,
+        "default_rate": 0.1299,
+        "utilization_avg": 0.6485,
+        "pay_ratio_avg": 0.0463,
+        "mean_delay": 0.0012,
+        "n_months_delayed": 0.0043,
+        "bill_trend": 0.066,
+        "limit_median": 80000.0,
+        "exposure": 983057616.8,
+        "share": 0.2954,
+        "label": "rotativo recorrente (utilização alta, pagamento mínimo)"
+      },
+      {
+        "segment": 1,
+        "n": 12943,
+        "default_rate": 0.1306,
+        "utilization_avg": 0.0848,
+        "pay_ratio_avg": 0.7534,
+        "mean_delay": 0.0359,
+        "n_months_delayed": 0.1687,
+        "bill_trend": -0.0019,
+        "limit_median": 220000.0,
+        "exposure": 1967653586.0,
+        "share": 0.4314,
+        "label": "baixo risco, alto limite, bom pagamento"
+      },
+      {
+        "segment": 0,
+        "n": 384,
+        "default_rate": 0.1745,
+        "utilization_avg": 0.0096,
+        "pay_ratio_avg": 4.1065,
+        "mean_delay": 0.1128,
+        "n_months_delayed": 0.4557,
+        "bill_trend": 0.0011,
+        "limit_median": 200000.0,
+        "exposure": 50623243.6,
+        "share": 0.0128,
+        "label": "uso moderado"
+      },
+      {
+        "segment": 2,
+        "n": 5311,
+        "default_rate": 0.3958,
+        "utilization_avg": 0.5167,
+        "pay_ratio_avg": 0.0594,
+        "mean_delay": 0.5785,
+        "n_months_delayed": 1.8292,
+        "bill_trend": 0.0246,
+        "limit_median": 80000.0,
+        "exposure": 458129062.2,
+        "share": 0.177,
+        "label": "deterioração recente / atraso"
+      },
+      {
+        "segment": 3,
+        "n": 2500,
+        "default_rate": 0.6504,
+        "utilization_avg": 0.6394,
+        "pay_ratio_avg": 0.0436,
+        "mean_delay": 1.9389,
+        "n_months_delayed": 5.1656,
+        "bill_trend": -0.0049,
+        "limit_median": 60000.0,
+        "exposure": 185636903.8,
+        "share": 0.0833,
+        "label": "atraso persistente"
+      }
+    ]
+  },
+  "portfolio": {
+    "total_ead": 1093856330.4,
+    "expected_loss": 144886185.95508772,
+    "el_rate": 0.1324544932716218,
+    "capital": 126826801.21781304,
+    "raroc_portfolio": -0.5626037782169271,
+    "limit_reduction_share": 0.7131111111111111,
+    "collections_top100_observed_bad_rate": 0.69,
+    "approved_book_at_threshold": {
+      "threshold": 0.12,
+      "n": 3644,
+      "ead": 582436224.5999999,
+      "expected_loss": 29325069.77976769,
+      "el_rate": 0.05034897992463859,
+      "raroc": 0.43000020760824964,
+      "observed_bad_rate": 0.07766190998902305
+    },
+    "note": "carteira inteira inclui contas que a política recusaria; UCI tem 22% de default (crise de cartões de Taiwan, 2005) — premissas econômicas são ilustrativas",
+    "currency": "NT$ (dólar taiwanês, moeda do dataset)"
+  },
+  "stress": [
+    {
+      "scenario": "base",
+      "mean_pd": 0.2198,
+      "expected_loss": 144886185.9917,
+      "delta_pd_pp": 0.0,
+      "delta_el_pct": 0.0,
+      "hhi_segments": 0.2618,
+      "top_decile_el_share": 0.4067
+    },
+    {
+      "scenario": "utilizacao_+20pct",
+      "mean_pd": 0.2291,
+      "expected_loss": 165172541.7804,
+      "delta_pd_pp": 0.9274,
+      "delta_el_pct": 14.0016,
+      "hhi_segments": 0.2524,
+      "top_decile_el_share": 0.405
+    },
+    {
+      "scenario": "atraso_+1_mes",
+      "mean_pd": 0.3135,
+      "expected_loss": 215663661.0823,
+      "delta_pd_pp": 9.368,
+      "delta_el_pct": 48.8504,
+      "hhi_segments": 0.2702,
+      "top_decile_el_share": 0.3502
+    },
+    {
+      "scenario": "corte_limite_20pct",
+      "mean_pd": 0.2275,
+      "expected_loss": 130459580.8572,
+      "delta_pd_pp": 0.7698,
+      "delta_el_pct": -9.9572,
+      "hhi_segments": 0.254,
+      "top_decile_el_share": 0.3991
+    },
+    {
+      "scenario": "pagamento_-30pct",
+      "mean_pd": 0.2328,
+      "expected_loss": 156847024.796,
+      "delta_pd_pp": 1.2995,
+      "delta_el_pct": 8.2553,
+      "hhi_segments": 0.2578,
+      "top_decile_el_share": 0.4006
+    },
+    {
+      "scenario": "combinado_severo",
+      "mean_pd": 0.3328,
+      "expected_loss": 225858960.3745,
+      "delta_pd_pp": 11.2968,
+      "delta_el_pct": 55.8872,
+      "hhi_segments": 0.2666,
+      "top_decile_el_share": 0.3566
+    }
+  ],
+  "monitoring": {
+    "batches": [
+      {
+        "batch": "lote_1",
+        "n": 2250,
+        "score_psi": 0.0032,
+        "score_alert": "green",
+        "target_rate": 0.2076,
+        "target_drift_pp": -1.3635,
+        "perf_auc": 0.7863,
+        "perf_gini": 0.5726,
+        "perf_ks": 0.4363,
+        "perf_pr_auc": 0.5654,
+        "calibration_gap_pp": 0.9192,
+        "ece": 0.0155
+      },
+      {
+        "batch": "lote_2",
+        "n": 2250,
+        "score_psi": 0.0032,
+        "score_alert": "green",
+        "target_rate": 0.2227,
+        "target_drift_pp": 0.1476,
+        "perf_auc": 0.779,
+        "perf_gini": 0.558,
+        "perf_ks": 0.4334,
+        "perf_pr_auc": 0.528,
+        "calibration_gap_pp": -0.4528,
+        "ece": 0.0174
+      },
+      {
+        "batch": "lote_3_choque_utilizacao",
+        "n": 2250,
+        "score_psi": 0.0172,
+        "score_alert": "green",
+        "target_rate": 0.224,
+        "target_drift_pp": 0.281,
+        "perf_auc": 0.7781,
+        "perf_gini": 0.5562,
+        "perf_ks": 0.4239,
+        "perf_pr_auc": 0.561,
+        "calibration_gap_pp": -0.0863,
+        "ece": 0.0108
+      },
+      {
+        "batch": "lote_4_choque_atraso",
+        "n": 2250,
+        "score_psi": 0.0757,
+        "score_alert": "green",
+        "target_rate": 0.2307,
+        "target_drift_pp": 0.9476,
+        "perf_auc": 0.7549,
+        "perf_gini": 0.5097,
+        "perf_ks": 0.3795,
+        "perf_pr_auc": 0.548,
+        "calibration_gap_pp": 3.4211,
+        "ece": 0.0469
+      }
+    ],
+    "red_features": [
+      {
+        "batch": "lote_4_choque_atraso",
+        "feature": "n_months_delayed",
+        "psi": 0.30165665101553707
+      },
+      {
+        "batch": "lote_4_choque_atraso",
+        "feature": "max_delay",
+        "psi": 0.2932096504280981
+      },
+      {
+        "batch": "lote_4_choque_atraso",
+        "feature": "PAY_2",
+        "psi": 0.8728490872799665
+      },
+      {
+        "batch": "lote_4_choque_atraso",
+        "feature": "PAY_3",
+        "psi": 1.2068749208826643
+      },
+      {
+        "batch": "lote_4_choque_atraso",
+        "feature": "PAY_4",
+        "psi": 1.329673608602636
+      },
+      {
+        "batch": "lote_4_choque_atraso",
+        "feature": "PAY_5",
+        "psi": 1.3518101528320094
+      }
+    ]
+  },
+  "fairness": {
+    "SEX": [
+      {
+        "group": "feminino",
+        "n": 5437,
+        "approval_rate": 0.4162,
+        "tpr_bad_rejected": 0.8554,
+        "fpr_good_rejected": 0.5116,
+        "mean_pd": 0.2148,
+        "observed_bad_rate": 0.2099,
+        "calibration_gap_pp": 0.4938,
+        "air": 1.0,
+        "air_ci_low": 1.0,
+        "air_ci_high": 1.0,
+        "below_four_fifths": false,
+        "reference_group": "feminino"
+      },
+      {
+        "group": "masculino",
+        "n": 3563,
+        "approval_rate": 0.3876,
+        "tpr_bad_rejected": 0.8612,
+        "fpr_good_rejected": 0.5345,
+        "mean_pd": 0.2275,
+        "observed_bad_rate": 0.2386,
+        "calibration_gap_pp": -1.1058,
+        "air": 0.9312,
+        "air_ci_low": 0.8842,
+        "air_ci_high": 0.9759,
+        "below_four_fifths": false,
+        "reference_group": "feminino"
+      }
+    ],
+    "EDUCATION": [
+      {
+        "group": "ensino médio",
+        "n": 1477,
+        "approval_rate": 0.3331,
+        "tpr_bad_rejected": 0.8636,
+        "fpr_good_rejected": 0.6002,
+        "mean_pd": 0.248,
+        "observed_bad_rate": 0.2532,
+        "calibration_gap_pp": -0.5199,
+        "air": 0.8843,
+        "air_ci_low": 0.8086,
+        "air_ci_high": 0.9659,
+        "below_four_fifths": false,
+        "reference_group": "universidade"
+      },
+      {
+        "group": "outros",
+        "n": 120,
+        "approval_rate": 0.5417,
+        "tpr_bad_rejected": 0.5,
+        "fpr_good_rejected": 0.4554,
+        "mean_pd": 0.1531,
+        "observed_bad_rate": 0.0667,
+        "calibration_gap_pp": 8.6422,
+        "air": 1.4379,
+        "air_ci_low": 1.1757,
+        "air_ci_high": 1.6993,
+        "below_four_fifths": false,
+        "reference_group": "universidade"
+      },
+      {
+        "group": "pós-graduação",
+        "n": 3206,
+        "approval_rate": 0.4697,
+        "tpr_bad_rejected": 0.823,
+        "fpr_good_rejected": 0.463,
+        "mean_pd": 0.1908,
+        "observed_bad_rate": 0.1868,
+        "calibration_gap_pp": 0.3981,
+        "air": 1.247,
+        "air_ci_low": 1.1844,
+        "air_ci_high": 1.3128,
+        "below_four_fifths": false,
+        "reference_group": "universidade"
+      },
+      {
+        "group": "universidade",
+        "n": 4197,
+        "approval_rate": 0.3767,
+        "tpr_bad_rejected": 0.8792,
+        "fpr_good_rejected": 0.5422,
+        "mean_pd": 0.234,
+        "observed_bad_rate": 0.2406,
+        "calibration_gap_pp": -0.6673,
+        "air": 1.0,
+        "air_ci_low": 1.0,
+        "air_ci_high": 1.0,
+        "below_four_fifths": false,
+        "reference_group": "universidade"
+      }
+    ],
+    "AGE_BAND": [
+      {
+        "group": "26–35",
+        "n": 3821,
+        "approval_rate": 0.4454,
+        "tpr_bad_rejected": 0.8538,
+        "fpr_good_rejected": 0.4837,
+        "mean_pd": 0.2048,
+        "observed_bad_rate": 0.1916,
+        "calibration_gap_pp": 1.3216,
+        "air": 1.0,
+        "air_ci_low": 1.0,
+        "air_ci_high": 1.0,
+        "below_four_fifths": false,
+        "reference_group": "26–35"
+      },
+      {
+        "group": "36–45",
+        "n": 2566,
+        "approval_rate": 0.4365,
+        "tpr_bad_rejected": 0.8397,
+        "fpr_good_rejected": 0.4839,
+        "mean_pd": 0.2092,
+        "observed_bad_rate": 0.2237,
+        "calibration_gap_pp": -1.4497,
+        "air": 0.9799,
+        "air_ci_low": 0.9283,
+        "air_ci_high": 1.0322,
+        "below_four_fifths": false,
+        "reference_group": "26–35"
+      },
+      {
+        "group": "46–60",
+        "n": 1359,
+        "approval_rate": 0.3642,
+        "tpr_bad_rejected": 0.8543,
+        "fpr_good_rejected": 0.5579,
+        "mean_pd": 0.2354,
+        "observed_bad_rate": 0.2627,
+        "calibration_gap_pp": -2.731,
+        "air": 0.8177,
+        "air_ci_low": 0.7576,
+        "air_ci_high": 0.8801,
+        "below_four_fifths": false,
+        "reference_group": "26–35"
+      },
+      {
+        "group": ">60",
+        "n": 94,
+        "approval_rate": 0.383,
+        "tpr_bad_rejected": 0.8148,
+        "fpr_good_rejected": 0.5373,
+        "mean_pd": 0.239,
+        "observed_bad_rate": 0.2872,
+        "calibration_gap_pp": -4.8255,
+        "air": 0.8598,
+        "air_ci_low": 0.6384,
+        "air_ci_high": 1.1138,
+        "below_four_fifths": false,
+        "reference_group": "26–35"
+      },
+      {
+        "group": "≤25",
+        "n": 1160,
+        "approval_rate": 0.2509,
+        "tpr_bad_rejected": 0.9103,
+        "fpr_good_rejected": 0.6927,
+        "mean_pd": 0.2731,
+        "observed_bad_rate": 0.2595,
+        "calibration_gap_pp": 1.3618,
+        "air": 0.5632,
+        "air_ci_low": 0.5068,
+        "air_ci_high": 0.6313,
+        "below_four_fifths": true,
+        "reference_group": "26–35"
+      }
+    ]
+  },
+  "model_card": {
+    "model_name": "riskcredit-pd-12m",
+    "champion": "xgboost",
+    "version": "v3-20260929",
+    "created_at": "2026-09-29T00:29:51.475177+00:00",
+    "intended_use": "PoC de portfólio — score de PD para simulação de estratégia; NÃO é sistema de concessão real",
+    "training_data": {
+      "source": "UCI Default of Credit Card Clients (Taiwan, 2005)",
+      "sha256": "c0a916b8f162e71ed3b8d5f0ee1b93c271275b5d7cb6637a3695db764970f442"
+    },
+    "target": "default no mês seguinte (out/2005)",
+    "artifact_sha256": "95d80a160808201d1150d5664df15581d970c580312ec182a1e2765fbb677107",
+    "approval_status": "PendingManualApproval",
+    "limitations": [
+      "sem OOT real (dataset sem originação/safra)",
+      "premissas econômicas ilustrativas",
+      "dados de 2005, Taiwan — sem validade para carteira brasileira atual"
+    ],
+    "feature_list": [
+      "LIMIT_BAL",
+      "PAY_0",
+      "PAY_2",
+      "PAY_3",
+      "PAY_4",
+      "PAY_5",
+      "PAY_6",
+      "BILL_AMT1",
+      "BILL_AMT2",
+      "BILL_AMT3",
+      "BILL_AMT4",
+      "BILL_AMT5",
+      "BILL_AMT6",
+      "PAY_AMT1",
+      "PAY_AMT2",
+      "PAY_AMT3",
+      "PAY_AMT4",
+      "PAY_AMT5",
+      "PAY_AMT6",
+      "mean_delay",
+      "max_delay",
+      "n_months_delayed",
+      "utilization",
+      "utilization_avg",
+      "pay_ratio",
+      "pay_ratio_avg",
+      "bill_trend",
+      "pay_trend"
+    ],
+    "threshold_max_expected_profit": 0.12,
+    "scorecard_scale": {
+      "base_score": 600,
+      "base_odds": 50,
+      "pdo": 20
+    }
+  }
+}
