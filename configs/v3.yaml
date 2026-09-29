@@ -1,0 +1,50 @@
+# RiskCredit V3 — Credit Risk Analytics & Portfolio Strategy
+# Premissas econômicas ILUSTRATIVAS (não calibradas com dados de uma instituição real).
+# Alterar aqui não exige mudança de código.
+
+data:
+  file: UCI_Credit_Card.csv
+  target: default.payment.next.month
+  test_size: 0.30
+  random_state: 42
+  # atributos usados só para auditoria de equidade — excluídos das features do modelo
+  audit_attributes: [SEX, MARRIAGE, AGE, EDUCATION]
+
+scorecard:
+  n_bins: 6
+  min_bin_share: 0.05
+  base_score: 600       # pontuação correspondente a base_odds
+  base_odds: 50         # odds bons:maus = 50:1 em 600 pontos
+  pdo: 20               # pontos para dobrar as odds
+  iv_min: 0.02          # IV mínimo para entrar no scorecard
+
+economics:              # por conta, horizonte de 12 meses (premissas de simulação)
+  lgd: 0.75             # cartão sem garantia
+  ccf: 0.60             # conversão do limite não utilizado
+  revenue_rate: 0.18    # receita anual sobre EAD (juros + tarifas)
+  funding_cost_rate: 0.08
+  opex_per_account: 120.0
+  capital_confidence: 0.999
+  asset_correlation_qrre: 0.04   # Basileia II — qualifying revolving retail
+  hurdle_raroc: 0.15
+  fp_cost: null         # se null: margem perdida = (revenue - funding) × EAD
+  fn_cost: null         # se null: perda = LGD × EAD
+
+segmentation:
+  k_range: [3, 8]
+  bootstrap: 30
+  random_state: 7
+
+monitoring:
+  psi_bins: 10
+  thresholds: {green: 0.10, amber: 0.25}
+
+stress:
+  scenarios:
+    utilizacao_+20pct:   {bill_mult: 1.20}
+    atraso_+1_mes:       {pay_shift: 1}
+    corte_limite_20pct:  {limit_mult: 0.80}
+    pagamento_-30pct:    {payamt_mult: 0.70}
+    combinado_severo:    {bill_mult: 1.20, pay_shift: 1, limit_mult: 0.80, payamt_mult: 0.70}
+
+capacity_share: 0.10

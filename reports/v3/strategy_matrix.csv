@@ -1,0 +1,27 @@
+segment,pd_band,n,raroc,el,action
+0: uso moderado,A (<5%),1,0.7735669426968785,7888.9604869678615,aprovar / aumentar limite
+0: uso moderado,B (5–10%),16,0.31009887807622527,149371.29095263928,aprovar / aumentar limite
+0: uso moderado,C (10–20%),63,-0.2650187357840881,1015168.2452162259,recusar ou reduzir exposição
+0: uso moderado,D (20–35%),35,-0.8162791237471491,774893.6002170637,recusar ou reduzir exposição
+0: uso moderado,E (35–60%),6,-1.9959698209374228,156325.79911905527,recusar ou reduzir exposição
+"1: baixo risco, alto limite, bom pagamento",A (<5%),751,0.999406701748997,4546952.030212921,aprovar / aumentar limite
+"1: baixo risco, alto limite, bom pagamento",B (5–10%),1178,0.3651129011264431,9878120.405932605,aprovar / aumentar limite
+"1: baixo risco, alto limite, bom pagamento",C (10–20%),1237,-0.2508275697382282,16862260.18375257,recusar ou reduzir exposição
+"1: baixo risco, alto limite, bom pagamento",D (20–35%),600,-0.8144065975862183,12805504.43274313,recusar ou reduzir exposição
+"1: baixo risco, alto limite, bom pagamento",E (35–60%),151,-1.302660300444758,5336373.4934132425,recusar ou reduzir exposição
+"1: baixo risco, alto limite, bom pagamento",F (≥60%),1,-4.3723072341588685,123854.19549826384,recusar ou reduzir exposição
+2: deterioração recente / atraso,B (5–10%),14,0.1424458069905125,180992.33203967995,aprovar com reprecificação
+2: deterioração recente / atraso,C (10–20%),194,-0.37316157435590613,2678251.573377221,recusar ou reduzir exposição
+2: deterioração recente / atraso,D (20–35%),555,-0.9028783999058634,9646001.141860852,recusar ou reduzir exposição
+2: deterioração recente / atraso,E (35–60%),444,-1.5863125919558407,10026190.713452067,recusar ou reduzir exposição
+2: deterioração recente / atraso,F (≥60%),375,-3.891681707287985,18067307.139757372,recusar ou reduzir exposição
+3: atraso persistente,C (10–20%),1,-0.1787025035596061,1773.6855741262434,recusar ou reduzir exposição
+3: atraso persistente,D (20–35%),22,-1.065814373794051,607206.7731729716,recusar ou reduzir exposição
+3: atraso persistente,E (35–60%),237,-2.1128527862926476,5791476.400371967,recusar ou reduzir exposição
+3: atraso persistente,F (≥60%),480,-5.270304924799549,21245055.876905546,recusar ou reduzir exposição
+"4: rotativo recorrente (utilização alta, pagamento mínimo)",A (<5%),111,0.9146454875832908,635981.973842602,aprovar / aumentar limite
+"4: rotativo recorrente (utilização alta, pagamento mínimo)",B (5–10%),862,0.2722719917861492,6664127.793403494,aprovar
+"4: rotativo recorrente (utilização alta, pagamento mínimo)",C (10–20%),1469,-0.24183489907355982,13924951.849203309,recusar ou reduzir exposição
+"4: rotativo recorrente (utilização alta, pagamento mínimo)",D (20–35%),188,-0.6831579544661206,2750191.3685338898,recusar ou reduzir exposição
+"4: rotativo recorrente (utilização alta, pagamento mínimo)",E (35–60%),4,-1.6318396055905935,202976.28135146498,recusar ou reduzir exposição
+"4: rotativo recorrente (utilização alta, pagamento mínimo)",F (≥60%),5,-3.9858665761951024,806988.4146964699,recusar ou reduzir exposição

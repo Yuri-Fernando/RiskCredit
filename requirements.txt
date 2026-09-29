@@ -1,0 +1,17 @@
+# Versões usadas na execução registrada da v3 (Python 3.10.8)
+numpy==2.2.6
+pandas==2.3.1
+scipy==1.15.3
+scikit-learn==1.7.2
+xgboost==3.2.0
+lightgbm==4.6.0
+PyYAML==6.0.3
+matplotlib==3.10.0
+joblib
+dash==3.3.0
+plotly==6.5.1
+pytest==9.0.1
+# notebook v2
+seaborn
+shap
+reportlab
