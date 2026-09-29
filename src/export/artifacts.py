@@ -21,14 +21,15 @@ import pandas as pd
 RAW_INPUT_FEATURES = ["LIMIT_BAL", "PAY_0", "PAY_2", "PAY_3", "PAY_4", "PAY_5", "PAY_6",
                       "BILL_AMT1", "BILL_AMT2", "BILL_AMT3", "BILL_AMT4", "BILL_AMT5", "BILL_AMT6",
                       "PAY_AMT1", "PAY_AMT2", "PAY_AMT3", "PAY_AMT4", "PAY_AMT5", "PAY_AMT6"]
-RANGES = {"LIMIT_BAL": (1, 5_000_000), "PAY_": (-2, 9), "BILL_AMT": (-1_000_000, 5_000_000),
-          "PAY_AMT": (0, 5_000_000)}
+RANGES = {"LIMIT_BAL": (1, 5_000_000), "PAY_AMT": (0, 5_000_000), "BILL_AMT": (-1_000_000, 5_000_000),
+          "PAY_": (-2, 9)}
 
 
 def _range(col: str) -> tuple[float, float]:
-    for prefix, r in RANGES.items():
+    # prefixo mais longo primeiro: "PAY_AMT1" também começa com "PAY_"
+    for prefix in sorted(RANGES, key=len, reverse=True):
         if col.startswith(prefix):
-            return r
+            return RANGES[prefix]
     return (-np.inf, np.inf)
 
 

@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.data.load import engineer, exposure_at_default, load_raw  # noqa: E402
+from src.export.artifacts import feature_schema  # noqa: E402
 from src.fairness.audit import adverse_impact  # noqa: E402
 from src.features.woe import fit_bins, iv_strength  # noqa: E402
 from src.models.champion_challenger import select_champion  # noqa: E402
@@ -161,3 +162,10 @@ def test_champion_rule_materiality():
     assert select_champion(t)["champion"] == "xgboost"
     t.loc[1, "passes_calibration"] = False
     assert select_champion(t)["champion"] == "scorecard"
+
+
+def test_feature_schema_ranges_use_longest_prefix():
+    sch = {f["name"]: f for f in feature_schema(["PAY_0"])["raw_input_features"]}
+    assert (sch["PAY_0"]["min"], sch["PAY_0"]["max"]) == (-2, 9)
+    assert (sch["PAY_AMT1"]["min"], sch["PAY_AMT1"]["max"]) == (0, 5_000_000)
+    assert sch["BILL_AMT3"]["min"] < 0

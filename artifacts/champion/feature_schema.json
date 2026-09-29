@@ -95,43 +95,43 @@
     {
       "name": "PAY_AMT1",
       "dtype": "number",
-      "min": -2,
-      "max": 9,
+      "min": 0,
+      "max": 5000000,
       "required": true
     },
     {
       "name": "PAY_AMT2",
       "dtype": "number",
-      "min": -2,
-      "max": 9,
+      "min": 0,
+      "max": 5000000,
       "required": true
     },
     {
       "name": "PAY_AMT3",
       "dtype": "number",
-      "min": -2,
-      "max": 9,
+      "min": 0,
+      "max": 5000000,
       "required": true
     },
     {
       "name": "PAY_AMT4",
       "dtype": "number",
-      "min": -2,
-      "max": 9,
+      "min": 0,
+      "max": 5000000,
       "required": true
     },
     {
       "name": "PAY_AMT5",
       "dtype": "number",
-      "min": -2,
-      "max": 9,
+      "min": 0,
+      "max": 5000000,
       "required": true
     },
     {
       "name": "PAY_AMT6",
       "dtype": "number",
-      "min": -2,
-      "max": 9,
+      "min": 0,
+      "max": 5000000,
       "required": true
     }
   ],

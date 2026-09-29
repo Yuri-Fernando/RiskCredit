@@ -2,14 +2,14 @@
   "model_name": "riskcredit-pd-12m",
   "champion": "xgboost",
   "version": "v3-20260929",
-  "created_at": "2026-09-29T00:53:49.634821+00:00",
+  "created_at": "2026-09-29T00:59:42.510752+00:00",
   "intended_use": "PoC de portfólio — score de PD para simulação de estratégia; NÃO é sistema de concessão real",
   "training_data": {
     "source": "UCI Default of Credit Card Clients (Taiwan, 2005)",
     "sha256": "c0a916b8f162e71ed3b8d5f0ee1b93c271275b5d7cb6637a3695db764970f442"
   },
   "target": "default no mês seguinte (out/2005)",
-  "artifact_sha256": "9ee1972988f1d44c370b8422b914620259e8360e28d597a05bcc227c05e34d85",
+  "artifact_sha256": "0af2121c241ae8587f3c5960da54daf5914680e9a1a78c6f7bb836b84d99a597",
   "approval_status": "PendingManualApproval",
   "limitations": [
     "sem OOT real (dataset sem originação/safra)",

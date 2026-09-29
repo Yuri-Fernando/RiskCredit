@@ -2,6 +2,11 @@
 
 Documento mestre de histórico. Formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) + SemVer.
 
+## [3.0.2] — 2026-09-28
+
+### Fixed
+- `feature_schema.json`: faixa de `PAY_AMT*` era [−2, 9] porque o prefixo `PAY_` casava antes de `PAY_AMT`; agora usa o prefixo mais longo (teste de regressão adicionado). Detectado ao integrar o contrato no repositório AWS.
+
 ## [3.0.1] — 2026-09-28
 
 ### Added
