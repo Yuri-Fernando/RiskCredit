@@ -247,7 +247,7 @@ Aplicação web com 3 abas:
 ├── dashboards/executive_dashboard.py   # Dash — 6 páginas executivas
 ├── reports/v3/                # CSVs, figuras e summary.json do run
 ├── artifacts/champion/        # model.tar.gz, model_card.json, feature_schema.json, metrics.json
-├── tests/test_v3.py           # 15 testes
+├── tests/test_v3.py           # 16 testes
 ├── riskcredit_v2.ipynb       # Notebook principal (28 células)
 ├── generate_notebook.py       # Script gerador do notebook
 ├── UCI_Credit_Card.csv        # Dataset (30.000 registros)
@@ -282,7 +282,7 @@ pip install -r requirements.txt
 ### V3 — pipeline, testes e dashboard executivo
 ```bash
 python run_pipeline_v3.py                  # ~50 s → reports/v3/ e artifacts/champion/
-python -m pytest -q tests                  # 15 testes
+python -m pytest -q tests                  # 16 testes
 python dashboards/executive_dashboard.py   # http://127.0.0.1:8050
 ```
 

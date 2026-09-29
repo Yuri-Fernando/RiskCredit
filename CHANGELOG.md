@@ -32,7 +32,7 @@ Origem: plano de evolução do portfólio financeiro (seções 4, 7 e 8), priori
 - **Equidade**: aprovação, TPR/FPR, calibração e AIR com IC bootstrap por sexo, escolaridade e faixa etária.
 - **Robustez de defasagem** (explicitamente não-OOT).
 - **Export do champion** para o repositório AWS (`artifacts/champion/`).
-- Dashboard executivo Dash (6 páginas), `configs/v3.yaml`, `requirements.txt`, 15 testes.
+- Dashboard executivo Dash (6 páginas), `configs/v3.yaml`, `requirements.txt`, 15 testes (16 a partir da 3.0.2).
 
 ### Changed
 - Atributos demográficos saem das features do modelo e passam a ser só de auditoria.
