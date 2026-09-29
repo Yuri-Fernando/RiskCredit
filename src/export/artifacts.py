@@ -44,8 +44,35 @@ def feature_schema(model_features: list[str]) -> dict:
     }
 
 
+def reference_profile(train_df: pd.DataFrame, features: list[str], train_scores: np.ndarray, n_bins: int = 10) -> dict:
+    """Perfil de referência para monitoramento de drift no serviço de inferência:
+    bordas de bins (quantis; valores únicos para discretas) e proporções do treino."""
+    prof = {}
+    for f in [*features, "__score__"]:
+        x = np.asarray(train_scores if f == "__score__" else train_df[f], dtype=float)
+        uniq = np.unique(x)
+        if len(uniq) <= 20:
+            prof[f] = {"type": "discrete", "values": uniq.tolist(),
+                       "proportions": [float((x == v).mean()) for v in uniq]}
+        else:
+            edges = np.unique(np.quantile(x, np.linspace(0, 1, n_bins + 1))[1:-1])
+            idx = np.searchsorted(edges, x, side="right")
+            prof[f] = {"type": "continuous", "edges": edges.tolist(),
+                       "proportions": (np.bincount(idx, minlength=len(edges) + 1) / len(x)).tolist()}
+    return {"schema_version": "1.0.0", "n_reference": int(len(train_df)), "features": prof}
+
+
+def golden_samples(raw_rows: pd.DataFrame, pd_values: np.ndarray) -> list[dict]:
+    """Entradas brutas + PD esperada do champion — teste de contrato/paridade no repositório AWS."""
+    out = []
+    for (_, r), p in zip(raw_rows.iterrows(), pd_values):
+        out.append({"input": {c: float(r[c]) for c in RAW_INPUT_FEATURES}, "expected_pd": float(p)})
+    return out
+
+
 def export_champion(out_dir: Path, champion_name: str, model, model_features: list[str], metrics: dict,
-                    data_hash_: str, xgb_model=None, extra_card: dict | None = None) -> dict:
+                    data_hash_: str, xgb_model=None, extra_card: dict | None = None,
+                    reference: dict | None = None, golden: list[dict] | None = None) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     joblib.dump({"model": model, "features": model_features, "name": champion_name}, out_dir / "model.joblib")
     files = ["model.joblib"]
@@ -56,6 +83,10 @@ def export_champion(out_dir: Path, champion_name: str, model, model_features: li
     (out_dir / "feature_schema.json").write_text(json.dumps(schema, indent=2, ensure_ascii=False), encoding="utf-8")
     (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2, ensure_ascii=False, default=float),
                                           encoding="utf-8")
+    if reference is not None:
+        (out_dir / "reference_profile.json").write_text(json.dumps(reference, indent=1), encoding="utf-8")
+    if golden is not None:
+        (out_dir / "golden_samples.json").write_text(json.dumps(golden, indent=1), encoding="utf-8")
     with tarfile.open(out_dir / "model.tar.gz", "w:gz") as tar:
         for f in files:
             tar.add(out_dir / f, arcname=f)

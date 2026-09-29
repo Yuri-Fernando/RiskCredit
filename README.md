@@ -120,7 +120,8 @@ revisão de política (necessidade do negócio, variáveis alternativas, impacto
 [Credit-Score-Predictor---AWS-Streamlit](https://github.com/Yuri-Fernando/Credit-Score-Predictor---AWS-Streamlit):
 `model.tar.gz` (joblib + `xgboost-model.json`), `model_card.json` (hash dos dados, hash do artefato,
 `approval_status = PendingManualApproval`), `feature_schema.json` (features, faixas válidas, atributos
-excluídos) e `metrics.json`. A camada regulatória (PD/LGD/EAD, ECL IFRS 9, survival) está no
+excluídos), `metrics.json`, `reference_profile.json` (distribuições de treino para drift) e
+`golden_samples.json` (25 entradas brutas + PD esperada, usadas como teste de contrato no repositório AWS). A camada regulatória (PD/LGD/EAD, ECL IFRS 9, survival) está no
 [IFRS17_Risk](https://github.com/Yuri-Fernando/IFRS17_Risk).
 
 ```text

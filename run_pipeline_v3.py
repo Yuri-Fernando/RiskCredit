@@ -31,7 +31,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 from src.data.load import BEHAVIOR_FEATURES, TARGET, data_hash, engineer, exposure_at_default, load_raw  # noqa: E402
-from src.export.artifacts import export_champion  # noqa: E402
+from src.export.artifacts import export_champion, golden_samples, reference_profile  # noqa: E402
 from src.fairness.audit import run_audit  # noqa: E402
 from src.models.champion_challenger import evaluate, select_champion, train_challengers  # noqa: E402
 from src.models.scorecard import fit_scorecard  # noqa: E402
@@ -208,8 +208,11 @@ def main() -> dict:
     extra = {"feature_list": sc.features if champ == "scorecard" else BEHAVIOR_FEATURES,
              "threshold_max_expected_profit": thr, "scorecard_scale": {"base_score": sc.base_score,
                                                                        "base_odds": sc.base_odds, "pdo": sc.pdo}}
-    card = export_champion(ART, champ, champ_model, sc.features if champ == "scorecard" else BEHAVIOR_FEATURES,
-                           metrics, data_hash(raw), xgb_model=xgb_model, extra_card=extra)
+    feats_out = sc.features if champ == "scorecard" else BEHAVIOR_FEATURES
+    ref = reference_profile(tr, feats_out, predict(tr))
+    gold = golden_samples(raw_te.head(25), p_te[:25])
+    card = export_champion(ART, champ, champ_model, feats_out, metrics, data_hash(raw), xgb_model=xgb_model,
+                           extra_card=extra, reference=ref, golden=gold)
     if champ == "scorecard":
         (ART / "scorecard.json").write_text(json.dumps({
             "features": sc.features, "intercept": float(sc.model.intercept_[0]),

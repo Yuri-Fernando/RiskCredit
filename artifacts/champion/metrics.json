@@ -16,7 +16,7 @@
     "observed_rate": 0.2212222222222222,
     "psi_train_test": 0.00027133316266621184,
     "n_features": 28,
-    "latency_ms_per_1k": 1.98,
+    "latency_ms_per_1k": 1.43,
     "passes_calibration": true,
     "passes_stability": true
   },

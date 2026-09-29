@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "elapsed_seconds": 45.6,
+  "elapsed_seconds": 46.4,
   "champion": {
     "champion": "xgboost",
     "gini_gain_vs_scorecard": 0.035436321772989166,
@@ -79,7 +79,7 @@
       "psi_train_test": 0.0008,
       "explainability": "alta",
       "n_features": 16,
-      "latency_ms_per_1k": 0.61,
+      "latency_ms_per_1k": 0.59,
       "passes_calibration": true,
       "passes_stability": true
     },
@@ -96,7 +96,7 @@
       "psi_train_test": 0.0007,
       "explainability": "alta",
       "n_features": 28,
-      "latency_ms_per_1k": 0.5,
+      "latency_ms_per_1k": 0.55,
       "passes_calibration": true,
       "passes_stability": true
     },
@@ -113,7 +113,7 @@
       "psi_train_test": 0.0027,
       "explainability": "média (SHAP)",
       "n_features": 28,
-      "latency_ms_per_1k": 7.1,
+      "latency_ms_per_1k": 7.77,
       "passes_calibration": true,
       "passes_stability": true
     },
@@ -130,7 +130,7 @@
       "psi_train_test": 0.0003,
       "explainability": "média (SHAP)",
       "n_features": 28,
-      "latency_ms_per_1k": 1.98,
+      "latency_ms_per_1k": 1.43,
       "passes_calibration": true,
       "passes_stability": true
     },
@@ -147,7 +147,7 @@
       "psi_train_test": 0.0032,
       "explainability": "média (SHAP)",
       "n_features": 28,
-      "latency_ms_per_1k": 21.19,
+      "latency_ms_per_1k": 19.74,
       "passes_calibration": true,
       "passes_stability": true
     }
@@ -631,14 +631,14 @@
     "model_name": "riskcredit-pd-12m",
     "champion": "xgboost",
     "version": "v3-20260929",
-    "created_at": "2026-09-29T00:29:51.475177+00:00",
+    "created_at": "2026-09-29T00:53:49.634821+00:00",
     "intended_use": "PoC de portfólio — score de PD para simulação de estratégia; NÃO é sistema de concessão real",
     "training_data": {
       "source": "UCI Default of Credit Card Clients (Taiwan, 2005)",
       "sha256": "c0a916b8f162e71ed3b8d5f0ee1b93c271275b5d7cb6637a3695db764970f442"
     },
     "target": "default no mês seguinte (out/2005)",
-    "artifact_sha256": "95d80a160808201d1150d5664df15581d970c580312ec182a1e2765fbb677107",
+    "artifact_sha256": "9ee1972988f1d44c370b8422b914620259e8360e28d597a05bcc227c05e34d85",
     "approval_status": "PendingManualApproval",
     "limitations": [
       "sem OOT real (dataset sem originação/safra)",

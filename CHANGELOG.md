@@ -2,6 +2,11 @@
 
 Documento mestre de histórico. Formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) + SemVer.
 
+## [3.0.1] — 2026-09-28
+
+### Added
+- Export do champion inclui `reference_profile.json` (drift) e `golden_samples.json` (contrato/paridade com o repositório AWS).
+
 ## [3.0.0] — 2026-09-28 — Credit Risk Analytics & Portfolio Strategy
 
 Origem: plano de evolução do portfólio financeiro (seções 4, 7 e 8), priorizando os itens P0 de RiskCredit.
